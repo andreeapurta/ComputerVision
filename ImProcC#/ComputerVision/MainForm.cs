@@ -197,5 +197,62 @@ namespace ComputerVision
             workImage.Unlock();
             this.workImage.Unlock();
         }
+
+        private void egalizareBtn_Click(object sender, EventArgs e)
+        {
+            byte R, G, B;
+            Color color;
+            int[] hist = new int[256];
+            int[] histc = new int[256];
+            int[] transf = new int[256];
+            int intensitate;
+
+            workImage.Lock();
+
+            for (int i = 0; i < workImage.width; i++)
+            {
+                for (int j = 0; j < workImage.height; j++)
+                {
+                    color = workImage.GetPixel(i, j);
+                    R = color.R;
+                    G = color.G;
+                    B = color.B;
+
+                    intensitate = (R + G + B) / 3;
+                    hist[intensitate] = hist[intensitate] + 1;
+                }
+            }
+
+            histc[0] = hist[0];
+
+            for (int i = 1; i < 256; i++)
+            {
+                histc[i] = histc[i - 1] + hist[i];
+            }
+
+            for (int i = 0; i < 256; i++)
+            {
+                transf[i] = (histc[i] * 255) / (workImage.width * workImage.height);
+            }
+
+            for (int i = 0; i < workImage.width; i++)
+            {
+                for (int j = 0; j < workImage.height; j++)
+                {
+                    color = workImage.GetPixel(i, j);
+                    R = color.R;
+                    G = color.G;
+                    B = color.B;
+                    intensitate = (R + G + B) / 3;
+                    color = Color.FromArgb(transf[intensitate], transf[intensitate], transf[intensitate]);
+
+                    workImage.SetPixel(i, j, color);
+                }
+            }
+
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = workImage.GetBitMap();
+            workImage.Unlock();
+        }
     }
 }

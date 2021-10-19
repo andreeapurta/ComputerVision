@@ -39,6 +39,7 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
+            this.egalizareBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -77,6 +78,7 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.egalizareBtn);
             this.panel1.Controls.Add(this.btnNegativare);
             this.panel1.Controls.Add(this.buttonGrayscale);
             this.panel1.Location = new System.Drawing.Point(348, 271);
@@ -145,6 +147,17 @@ namespace ComputerVision
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
+            // egalizareBtn
+            // 
+            this.egalizareBtn.Location = new System.Drawing.Point(197, 155);
+            this.egalizareBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.egalizareBtn.Name = "egalizareBtn";
+            this.egalizareBtn.Size = new System.Drawing.Size(71, 23);
+            this.egalizareBtn.TabIndex = 15;
+            this.egalizareBtn.Text = "Egalizare";
+            this.egalizareBtn.UseVisualStyleBackColor = true;
+            this.egalizareBtn.Click += new System.EventHandler(this.egalizareBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,6 +194,7 @@ namespace ComputerVision
         private System.Windows.Forms.TrackBar trackBarContrast;
         private System.Windows.Forms.Label LuminozitateLbl;
         private System.Windows.Forms.Label ContrastLbl;
+        private System.Windows.Forms.Button egalizareBtn;
     }
 }
 
