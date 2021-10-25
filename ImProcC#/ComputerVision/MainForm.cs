@@ -254,5 +254,58 @@ namespace ComputerVision
             panelDestination.BackgroundImage = workImage.GetBitMap();
             workImage.Unlock();
         }
+
+        private void rotatieBtn_Click(object sender, EventArgs e)
+        {
+            double angle = (Convert.ToDouble(rotatieLbl.Text) * Math.PI) / 180;
+
+            Color color;
+            Bitmap image = new Bitmap(sourceFileName);
+            FastImage workImage = new FastImage(image);
+            workImage.Lock();
+            Bitmap newImage = new Bitmap(workImage.width, workImage.height);
+            FastImage newFastImage = new FastImage(newImage);
+            newFastImage.Lock();
+
+            int x0 = workImage.width / 2;
+            int y0 = workImage.height / 2;
+            int x2, y2;
+            for (int i = 0; i < workImage.width; i++)
+            {
+                for (int j = 0; j < workImage.height; j++)
+                {
+                    color = workImage.GetPixel(i, j);
+                    x2 = (int)(Math.Cos(angle) * (i - x0) - Math.Sin(angle) * (j - y0) + x0);
+                    y2 = (int)(Math.Sin(angle) * (i - x0) + Math.Cos(angle) * (j - y0) + y0);
+                    if ((x2 >= 0) && (x2 < newFastImage.width))
+                    {
+                        if ((y2 >= 0) && (y2 < newFastImage.height))
+                        {
+                            newFastImage.SetPixel(x2, y2, color);
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < newFastImage.width; i++)
+            {
+                for (int j = 0; j < newFastImage.height; j++)
+                {
+                    x2 = (int)(Math.Cos(-angle) * (i - x0) - Math.Sin(-angle) * (j - y0) + x0);
+                    y2 = (int)(Math.Sin(-angle) * (i - x0) + Math.Cos(-angle) * (j - y0) + y0);
+                    if ((x2 >= 0) && (x2 < newFastImage.width))
+                    {
+                        if ((y2 >= 0) && (y2 < newFastImage.height))
+                        {
+                            color = workImage.GetPixel(x2, y2);
+                            newFastImage.SetPixel(i, j, color);
+                        }
+                    }
+                }
+            }
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = newFastImage.GetBitMap();
+            newFastImage.Unlock();
+            workImage.Unlock();
+        }
     }
 }

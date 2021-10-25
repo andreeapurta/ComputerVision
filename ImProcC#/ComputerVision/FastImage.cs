@@ -10,7 +10,7 @@ namespace ComputerVision
         private BitmapData bitmapData = null;
         private Color color;
         private Point size;
-        private int currentBitmapWidth = 0;
+        private int currentBitmapwidth = 0;
         public int height = 0;
         public int width = 0;
 
@@ -25,7 +25,7 @@ namespace ComputerVision
             width = image.Width;
             height = image.Height;
             size = new Point(image.Size);
-            currentBitmapWidth = size.X;
+            currentBitmapwidth = size.X;
         }
 
         public void Lock()
@@ -46,7 +46,7 @@ namespace ComputerVision
             unsafe
             {
                 PixelData* pBase = (PixelData*)bitmapData.Scan0;
-                PixelData* pPixel = pBase + row * currentBitmapWidth + col;
+                PixelData* pPixel = pBase + row * currentBitmapwidth + col;
                 color = Color.FromArgb(pPixel->red, pPixel->green, pPixel->blue);
             }
             return color;
@@ -57,7 +57,7 @@ namespace ComputerVision
             unsafe
             {
                 PixelData* pBase = (PixelData*)bitmapData.Scan0;
-                PixelData* pPixel = pBase + row * currentBitmapWidth + col;
+                PixelData* pPixel = pBase + row * currentBitmapwidth + col;
                 pPixel->red = c.R;
                 pPixel->green = c.G;
                 pPixel->blue = c.B;

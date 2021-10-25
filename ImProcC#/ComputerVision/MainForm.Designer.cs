@@ -40,6 +40,8 @@ namespace ComputerVision
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
             this.egalizareBtn = new System.Windows.Forms.Button();
+            this.rotatieBtn = new System.Windows.Forms.Button();
+            this.rotatieLbl = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -78,6 +80,8 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.rotatieLbl);
+            this.panel1.Controls.Add(this.rotatieBtn);
             this.panel1.Controls.Add(this.egalizareBtn);
             this.panel1.Controls.Add(this.btnNegativare);
             this.panel1.Controls.Add(this.buttonGrayscale);
@@ -88,10 +92,10 @@ namespace ComputerVision
             // 
             // btnNegativare
             // 
-            this.btnNegativare.Location = new System.Drawing.Point(103, 155);
+            this.btnNegativare.Location = new System.Drawing.Point(115, 155);
             this.btnNegativare.Margin = new System.Windows.Forms.Padding(2);
             this.btnNegativare.Name = "btnNegativare";
-            this.btnNegativare.Size = new System.Drawing.Size(71, 23);
+            this.btnNegativare.Size = new System.Drawing.Size(89, 23);
             this.btnNegativare.TabIndex = 14;
             this.btnNegativare.Text = "Negativare";
             this.btnNegativare.UseVisualStyleBackColor = true;
@@ -99,9 +103,9 @@ namespace ComputerVision
             // 
             // buttonGrayscale
             // 
-            this.buttonGrayscale.Location = new System.Drawing.Point(7, 155);
+            this.buttonGrayscale.Location = new System.Drawing.Point(19, 155);
             this.buttonGrayscale.Name = "buttonGrayscale";
-            this.buttonGrayscale.Size = new System.Drawing.Size(75, 23);
+            this.buttonGrayscale.Size = new System.Drawing.Size(91, 23);
             this.buttonGrayscale.TabIndex = 13;
             this.buttonGrayscale.Text = "Grayscale";
             this.buttonGrayscale.UseVisualStyleBackColor = true;
@@ -149,14 +153,31 @@ namespace ComputerVision
             // 
             // egalizareBtn
             // 
-            this.egalizareBtn.Location = new System.Drawing.Point(197, 155);
+            this.egalizareBtn.Location = new System.Drawing.Point(208, 155);
             this.egalizareBtn.Margin = new System.Windows.Forms.Padding(2);
             this.egalizareBtn.Name = "egalizareBtn";
-            this.egalizareBtn.Size = new System.Drawing.Size(71, 23);
+            this.egalizareBtn.Size = new System.Drawing.Size(94, 23);
             this.egalizareBtn.TabIndex = 15;
             this.egalizareBtn.Text = "Egalizare";
             this.egalizareBtn.UseVisualStyleBackColor = true;
             this.egalizareBtn.Click += new System.EventHandler(this.egalizareBtn_Click);
+            // 
+            // rotatieBtn
+            // 
+            this.rotatieBtn.Location = new System.Drawing.Point(211, 127);
+            this.rotatieBtn.Name = "rotatieBtn";
+            this.rotatieBtn.Size = new System.Drawing.Size(91, 23);
+            this.rotatieBtn.TabIndex = 16;
+            this.rotatieBtn.Text = "Rotatie";
+            this.rotatieBtn.UseVisualStyleBackColor = true;
+            this.rotatieBtn.Click += new System.EventHandler(this.rotatieBtn_Click);
+            // 
+            // rotatieLbl
+            // 
+            this.rotatieLbl.Location = new System.Drawing.Point(19, 127);
+            this.rotatieLbl.Name = "rotatieLbl";
+            this.rotatieLbl.Size = new System.Drawing.Size(186, 20);
+            this.rotatieLbl.TabIndex = 17;
             // 
             // MainForm
             // 
@@ -174,6 +195,7 @@ namespace ComputerVision
             this.Name = "MainForm";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).EndInit();
             this.ResumeLayout(false);
@@ -195,6 +217,8 @@ namespace ComputerVision
         private System.Windows.Forms.Label LuminozitateLbl;
         private System.Windows.Forms.Label ContrastLbl;
         private System.Windows.Forms.Button egalizareBtn;
+        private System.Windows.Forms.Button rotatieBtn;
+        private System.Windows.Forms.TextBox rotatieLbl;
     }
 }
 
