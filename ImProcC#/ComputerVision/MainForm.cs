@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -305,6 +305,107 @@ namespace ComputerVision
             panelDestination.BackgroundImage = null;
             panelDestination.BackgroundImage = newFastImage.GetBitMap();
             newFastImage.Unlock();
+            workImage.Unlock();
+        }
+
+        private void InitializeMatrix(int[,] matrix, int index)
+        {
+            matrix[0, 0] = 1;
+            matrix[0, 1] = index;
+            matrix[0, 2] = 1;
+            matrix[1, 0] = index;
+            matrix[1, 1] = index * index;
+            matrix[1, 2] = index;
+            matrix[2, 0] = 1;
+            matrix[2, 1] = index;
+            matrix[2, 2] = 1;
+        }
+
+        private void ftjBtn_Click(object sender, EventArgs e) //Filtrul Trece-Jos
+        {
+            workImage.Lock();
+            Color color;
+            byte R, G, B;
+            int GSum, RSum, BSum;
+            int[,] H = new int[3, 3];
+            int index = Convert.ToInt32(ftjTxtBox.Text);
+            InitializeMatrix(H, index);
+
+            //Convoluția imaginii cu matricea H
+            for (int i = 1; i < workImage.height - 2; i++)
+            {
+                for (int j = 1; j < workImage.width - 2; j++)
+                {
+                    GSum = RSum = BSum = 0;
+
+                    for (int row = i - 1; row <= i + 1; row++)
+                    {
+                        for (int col = j - 1; col <= j + 1; col++)
+                        {
+                            color = workImage.GetPixel(col, row);
+                            G = color.G;
+                            R = color.R;
+                            B = color.B;
+
+                            GSum = GSum + G * H[row - i + 1, col - j + 1];
+                            RSum = RSum + R * H[row - i + 1, col - j + 1];
+                            BSum = BSum + B * H[row - i + 1, col - j + 1];
+                        }
+                    }
+                    GSum = GSum / ((index + 2) * (index + 2));
+                    RSum = RSum / ((index + 2) * (index + 2));
+                    BSum = BSum / ((index + 2) * (index + 2));
+
+                    color = Color.FromArgb(RSum, GSum, BSum);
+                    workImage.SetPixel(j, i, color);
+                }
+            }
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = workImage.GetBitMap();
+            workImage.Unlock();
+        }
+
+        private void outlierBtn_Click(object sender, EventArgs e)
+        {
+            workImage.Lock();
+            Color color;
+            byte R, G, B;
+            int GSum, RSum, BSum;
+            int[,] H = new int[3, 3];
+            int index = Convert.ToInt32(ftjTxtBox.Text);
+            InitializeMatrix(H, index);
+
+            //Convoluția imaginii cu matricea H
+            for (int i = 1; i < workImage.height - 2; i++)
+            {
+                for (int j = 1; j < workImage.width - 2; j++)
+                {
+                    GSum = RSum = BSum = 0;
+
+                    for (int row = i - 1; row <= i + 1; row++)
+                    {
+                        for (int col = j - 1; col <= j + 1; col++)
+                        {
+                            color = workImage.GetPixel(col, row);
+                            G = color.G;
+                            R = color.R;
+                            B = color.B;
+
+                            GSum = GSum + G * H[row - i + 1, col - j + 1];
+                            RSum = RSum + R * H[row - i + 1, col - j + 1];
+                            BSum = BSum + B * H[row - i + 1, col - j + 1];
+                        }
+                    }
+                    GSum = GSum / ((index + 2) * (index + 2));
+                    RSum = RSum / ((index + 2) * (index + 2));
+                    BSum = BSum / ((index + 2) * (index + 2));
+
+                    color = Color.FromArgb(RSum, GSum, BSum);
+                    workImage.SetPixel(j, i, color);
+                }
+            }
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = workImage.GetBitMap();
             workImage.Unlock();
         }
     }

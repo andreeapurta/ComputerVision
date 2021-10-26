@@ -32,6 +32,9 @@ namespace ComputerVision
             this.panelDestination = new System.Windows.Forms.Panel();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.rotatieLbl = new System.Windows.Forms.TextBox();
+            this.rotatieBtn = new System.Windows.Forms.Button();
+            this.egalizareBtn = new System.Windows.Forms.Button();
             this.btnNegativare = new System.Windows.Forms.Button();
             this.buttonGrayscale = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -39,9 +42,10 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
-            this.egalizareBtn = new System.Windows.Forms.Button();
-            this.rotatieBtn = new System.Windows.Forms.Button();
-            this.rotatieLbl = new System.Windows.Forms.TextBox();
+            this.ftjBtn = new System.Windows.Forms.Button();
+            this.ftjTxtBox = new System.Windows.Forms.TextBox();
+            this.outlierBtn = new System.Windows.Forms.Button();
+            this.outlierTxtBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -80,6 +84,10 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.outlierTxtBox);
+            this.panel1.Controls.Add(this.outlierBtn);
+            this.panel1.Controls.Add(this.ftjTxtBox);
+            this.panel1.Controls.Add(this.ftjBtn);
             this.panel1.Controls.Add(this.rotatieLbl);
             this.panel1.Controls.Add(this.rotatieBtn);
             this.panel1.Controls.Add(this.egalizareBtn);
@@ -89,6 +97,34 @@ namespace ComputerVision
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(320, 190);
             this.panel1.TabIndex = 3;
+            // 
+            // rotatieLbl
+            // 
+            this.rotatieLbl.Location = new System.Drawing.Point(19, 127);
+            this.rotatieLbl.Name = "rotatieLbl";
+            this.rotatieLbl.Size = new System.Drawing.Size(186, 20);
+            this.rotatieLbl.TabIndex = 17;
+            // 
+            // rotatieBtn
+            // 
+            this.rotatieBtn.Location = new System.Drawing.Point(211, 127);
+            this.rotatieBtn.Name = "rotatieBtn";
+            this.rotatieBtn.Size = new System.Drawing.Size(91, 23);
+            this.rotatieBtn.TabIndex = 16;
+            this.rotatieBtn.Text = "Rotatie";
+            this.rotatieBtn.UseVisualStyleBackColor = true;
+            this.rotatieBtn.Click += new System.EventHandler(this.rotatieBtn_Click);
+            // 
+            // egalizareBtn
+            // 
+            this.egalizareBtn.Location = new System.Drawing.Point(208, 155);
+            this.egalizareBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.egalizareBtn.Name = "egalizareBtn";
+            this.egalizareBtn.Size = new System.Drawing.Size(94, 23);
+            this.egalizareBtn.TabIndex = 15;
+            this.egalizareBtn.Text = "Egalizare";
+            this.egalizareBtn.UseVisualStyleBackColor = true;
+            this.egalizareBtn.Click += new System.EventHandler(this.egalizareBtn_Click);
             // 
             // btnNegativare
             // 
@@ -151,33 +187,39 @@ namespace ComputerVision
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
-            // egalizareBtn
+            // ftjBtn
             // 
-            this.egalizareBtn.Location = new System.Drawing.Point(208, 155);
-            this.egalizareBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.egalizareBtn.Name = "egalizareBtn";
-            this.egalizareBtn.Size = new System.Drawing.Size(94, 23);
-            this.egalizareBtn.TabIndex = 15;
-            this.egalizareBtn.Text = "Egalizare";
-            this.egalizareBtn.UseVisualStyleBackColor = true;
-            this.egalizareBtn.Click += new System.EventHandler(this.egalizareBtn_Click);
+            this.ftjBtn.Location = new System.Drawing.Point(211, 98);
+            this.ftjBtn.Name = "ftjBtn";
+            this.ftjBtn.Size = new System.Drawing.Size(91, 23);
+            this.ftjBtn.TabIndex = 18;
+            this.ftjBtn.Text = "FTJ";
+            this.ftjBtn.UseVisualStyleBackColor = true;
+            this.ftjBtn.Click += new System.EventHandler(this.ftjBtn_Click);
             // 
-            // rotatieBtn
+            // ftjTxtBox
             // 
-            this.rotatieBtn.Location = new System.Drawing.Point(211, 127);
-            this.rotatieBtn.Name = "rotatieBtn";
-            this.rotatieBtn.Size = new System.Drawing.Size(91, 23);
-            this.rotatieBtn.TabIndex = 16;
-            this.rotatieBtn.Text = "Rotatie";
-            this.rotatieBtn.UseVisualStyleBackColor = true;
-            this.rotatieBtn.Click += new System.EventHandler(this.rotatieBtn_Click);
+            this.ftjTxtBox.Location = new System.Drawing.Point(19, 101);
+            this.ftjTxtBox.Name = "ftjTxtBox";
+            this.ftjTxtBox.Size = new System.Drawing.Size(186, 20);
+            this.ftjTxtBox.TabIndex = 19;
             // 
-            // rotatieLbl
+            // outlierBtn
             // 
-            this.rotatieLbl.Location = new System.Drawing.Point(19, 127);
-            this.rotatieLbl.Name = "rotatieLbl";
-            this.rotatieLbl.Size = new System.Drawing.Size(186, 20);
-            this.rotatieLbl.TabIndex = 17;
+            this.outlierBtn.Location = new System.Drawing.Point(211, 69);
+            this.outlierBtn.Name = "outlierBtn";
+            this.outlierBtn.Size = new System.Drawing.Size(91, 23);
+            this.outlierBtn.TabIndex = 20;
+            this.outlierBtn.Text = "Outlier";
+            this.outlierBtn.UseVisualStyleBackColor = true;
+            this.outlierBtn.Click += new System.EventHandler(this.outlierBtn_Click);
+            // 
+            // outlierTxtBox
+            // 
+            this.outlierTxtBox.Location = new System.Drawing.Point(19, 72);
+            this.outlierTxtBox.Name = "outlierTxtBox";
+            this.outlierTxtBox.Size = new System.Drawing.Size(186, 20);
+            this.outlierTxtBox.TabIndex = 21;
             // 
             // MainForm
             // 
@@ -219,6 +261,10 @@ namespace ComputerVision
         private System.Windows.Forms.Button egalizareBtn;
         private System.Windows.Forms.Button rotatieBtn;
         private System.Windows.Forms.TextBox rotatieLbl;
+        private System.Windows.Forms.TextBox ftjTxtBox;
+        private System.Windows.Forms.Button ftjBtn;
+        private System.Windows.Forms.TextBox outlierTxtBox;
+        private System.Windows.Forms.Button outlierBtn;
     }
 }
 
