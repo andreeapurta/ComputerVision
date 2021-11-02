@@ -32,6 +32,11 @@ namespace ComputerVision
             this.panelDestination = new System.Windows.Forms.Panel();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.medianBtn = new System.Windows.Forms.Button();
+            this.outlierTxtBox = new System.Windows.Forms.TextBox();
+            this.outlierBtn = new System.Windows.Forms.Button();
+            this.ftjTxtBox = new System.Windows.Forms.TextBox();
+            this.ftjBtn = new System.Windows.Forms.Button();
             this.rotatieLbl = new System.Windows.Forms.TextBox();
             this.rotatieBtn = new System.Windows.Forms.Button();
             this.egalizareBtn = new System.Windows.Forms.Button();
@@ -42,10 +47,6 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
-            this.ftjBtn = new System.Windows.Forms.Button();
-            this.ftjTxtBox = new System.Windows.Forms.TextBox();
-            this.outlierBtn = new System.Windows.Forms.Button();
-            this.outlierTxtBox = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -84,6 +85,7 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.medianBtn);
             this.panel1.Controls.Add(this.outlierTxtBox);
             this.panel1.Controls.Add(this.outlierBtn);
             this.panel1.Controls.Add(this.ftjTxtBox);
@@ -95,8 +97,52 @@ namespace ComputerVision
             this.panel1.Controls.Add(this.buttonGrayscale);
             this.panel1.Location = new System.Drawing.Point(348, 271);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 190);
+            this.panel1.Size = new System.Drawing.Size(320, 213);
             this.panel1.TabIndex = 3;
+            // 
+            // medianBtn
+            // 
+            this.medianBtn.Location = new System.Drawing.Point(19, 183);
+            this.medianBtn.Name = "medianBtn";
+            this.medianBtn.Size = new System.Drawing.Size(91, 23);
+            this.medianBtn.TabIndex = 22;
+            this.medianBtn.Text = "Median";
+            this.medianBtn.UseVisualStyleBackColor = true;
+            this.medianBtn.Click += new System.EventHandler(this.MedianBtn_Click);
+            // 
+            // outlierTxtBox
+            // 
+            this.outlierTxtBox.Location = new System.Drawing.Point(19, 72);
+            this.outlierTxtBox.Name = "outlierTxtBox";
+            this.outlierTxtBox.Size = new System.Drawing.Size(186, 20);
+            this.outlierTxtBox.TabIndex = 21;
+            // 
+            // outlierBtn
+            // 
+            this.outlierBtn.Location = new System.Drawing.Point(211, 69);
+            this.outlierBtn.Name = "outlierBtn";
+            this.outlierBtn.Size = new System.Drawing.Size(91, 23);
+            this.outlierBtn.TabIndex = 20;
+            this.outlierBtn.Text = "Outlier";
+            this.outlierBtn.UseVisualStyleBackColor = true;
+            this.outlierBtn.Click += new System.EventHandler(this.OutlierBtn_Click);
+            // 
+            // ftjTxtBox
+            // 
+            this.ftjTxtBox.Location = new System.Drawing.Point(19, 101);
+            this.ftjTxtBox.Name = "ftjTxtBox";
+            this.ftjTxtBox.Size = new System.Drawing.Size(186, 20);
+            this.ftjTxtBox.TabIndex = 19;
+            // 
+            // ftjBtn
+            // 
+            this.ftjBtn.Location = new System.Drawing.Point(211, 98);
+            this.ftjBtn.Name = "ftjBtn";
+            this.ftjBtn.Size = new System.Drawing.Size(91, 23);
+            this.ftjBtn.TabIndex = 18;
+            this.ftjBtn.Text = "FTJ";
+            this.ftjBtn.UseVisualStyleBackColor = true;
+            this.ftjBtn.Click += new System.EventHandler(this.FTJBtn_Click);
             // 
             // rotatieLbl
             // 
@@ -113,7 +159,7 @@ namespace ComputerVision
             this.rotatieBtn.TabIndex = 16;
             this.rotatieBtn.Text = "Rotatie";
             this.rotatieBtn.UseVisualStyleBackColor = true;
-            this.rotatieBtn.Click += new System.EventHandler(this.rotatieBtn_Click);
+            this.rotatieBtn.Click += new System.EventHandler(this.RotateBtn_Click);
             // 
             // egalizareBtn
             // 
@@ -124,7 +170,7 @@ namespace ComputerVision
             this.egalizareBtn.TabIndex = 15;
             this.egalizareBtn.Text = "Egalizare";
             this.egalizareBtn.UseVisualStyleBackColor = true;
-            this.egalizareBtn.Click += new System.EventHandler(this.egalizareBtn_Click);
+            this.egalizareBtn.Click += new System.EventHandler(this.EgalizareBtn_Click);
             // 
             // btnNegativare
             // 
@@ -187,40 +233,6 @@ namespace ComputerVision
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
-            // ftjBtn
-            // 
-            this.ftjBtn.Location = new System.Drawing.Point(211, 98);
-            this.ftjBtn.Name = "ftjBtn";
-            this.ftjBtn.Size = new System.Drawing.Size(91, 23);
-            this.ftjBtn.TabIndex = 18;
-            this.ftjBtn.Text = "FTJ";
-            this.ftjBtn.UseVisualStyleBackColor = true;
-            this.ftjBtn.Click += new System.EventHandler(this.ftjBtn_Click);
-            // 
-            // ftjTxtBox
-            // 
-            this.ftjTxtBox.Location = new System.Drawing.Point(19, 101);
-            this.ftjTxtBox.Name = "ftjTxtBox";
-            this.ftjTxtBox.Size = new System.Drawing.Size(186, 20);
-            this.ftjTxtBox.TabIndex = 19;
-            // 
-            // outlierBtn
-            // 
-            this.outlierBtn.Location = new System.Drawing.Point(211, 69);
-            this.outlierBtn.Name = "outlierBtn";
-            this.outlierBtn.Size = new System.Drawing.Size(91, 23);
-            this.outlierBtn.TabIndex = 20;
-            this.outlierBtn.Text = "Outlier";
-            this.outlierBtn.UseVisualStyleBackColor = true;
-            this.outlierBtn.Click += new System.EventHandler(this.outlierBtn_Click);
-            // 
-            // outlierTxtBox
-            // 
-            this.outlierTxtBox.Location = new System.Drawing.Point(19, 72);
-            this.outlierTxtBox.Name = "outlierTxtBox";
-            this.outlierTxtBox.Size = new System.Drawing.Size(186, 20);
-            this.outlierTxtBox.TabIndex = 21;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -265,6 +277,7 @@ namespace ComputerVision
         private System.Windows.Forms.Button ftjBtn;
         private System.Windows.Forms.TextBox outlierTxtBox;
         private System.Windows.Forms.Button outlierBtn;
+        private System.Windows.Forms.Button medianBtn;
     }
 }
 

@@ -45,9 +45,8 @@ namespace ComputerVision
                     workImage.SetPixel(i, j, color);
                 }
             }
-            panelDestination.BackgroundImage = null;
-            panelDestination.BackgroundImage = workImage.GetBitMap();
-            workImage.Unlock();
+
+            Finish();
         }
 
         private void BtnNegativare_Click(object sender, EventArgs e)
@@ -69,9 +68,7 @@ namespace ComputerVision
                     workImage.SetPixel(i, j, color);
                 }
             }
-            panelDestination.BackgroundImage = null;
-            panelDestination.BackgroundImage = workImage.GetBitMap();
-            workImage.Unlock();
+            Finish();
         }
 
         private int SetLuminosityBasedOnTrackBarValue(int color, int trackBarValue)
@@ -198,7 +195,7 @@ namespace ComputerVision
             this.workImage.Unlock();
         }
 
-        private void egalizareBtn_Click(object sender, EventArgs e)
+        private void EgalizareBtn_Click(object sender, EventArgs e)
         {
             byte R, G, B;
             Color color;
@@ -250,12 +247,10 @@ namespace ComputerVision
                 }
             }
 
-            panelDestination.BackgroundImage = null;
-            panelDestination.BackgroundImage = workImage.GetBitMap();
-            workImage.Unlock();
+            Finish();
         }
 
-        private void rotatieBtn_Click(object sender, EventArgs e)
+        private void RotateBtn_Click(object sender, EventArgs e)
         {
             double angle = (Convert.ToDouble(rotatieLbl.Text) * Math.PI) / 180;
 
@@ -334,7 +329,7 @@ namespace ComputerVision
             matrix[2, 2] = 1;
         }
 
-        private void ftjBtn_Click(object sender, EventArgs e) //Filtrul Trece-Jos
+        private void FTJBtn_Click(object sender, EventArgs e) //Filtrul Trece-Jos
         {
             workImage.Lock();
             Color color;
@@ -373,12 +368,10 @@ namespace ComputerVision
                     workImage.SetPixel(j, i, color);
                 }
             }
-            panelDestination.BackgroundImage = null;
-            panelDestination.BackgroundImage = workImage.GetBitMap();
-            workImage.Unlock();
+            Finish();
         }
 
-        private void outlierBtn_Click(object sender, EventArgs e)
+        private void OutlierBtn_Click(object sender, EventArgs e)
         {
             int[,] H = new int[3, 3];
             Color color;
@@ -427,9 +420,48 @@ namespace ComputerVision
                 }
             }
 
+            Finish();
+        }
+
+        private void Finish()
+        {
             panelDestination.BackgroundImage = null;
             panelDestination.BackgroundImage = workImage.GetBitMap();
             workImage.Unlock();
+        }
+
+        private void MedianBtn_Click(object sender, EventArgs e)
+        {
+            Color color;
+            workImage.Lock();
+
+            for (int i = 1; i < workImage.width - 1; i++)
+            {
+                for (int j = 1; j < workImage.height - 1; j++)
+                {
+                    int[] R = new int[9], G = new int[9], B = new int[9];
+
+                    for (int row = i - 1; row <= i + 1; row++)
+                    {
+                        for (int col = j - 1; col <= j + 1; col++)
+                        {
+                            color = workImage.GetPixel(row, col);
+                            R[3 * (row - i + 1) + col - j + 1] = color.R;
+                            G[3 * (row - i + 1) + col - j + 1] = color.G;
+                            B[3 * (row - i + 1) + col - j + 1] = color.B;
+                        }
+                    }
+
+                    Array.Sort(R);
+                    Array.Sort(G);
+                    Array.Sort(B);
+
+                    color = Color.FromArgb((byte)R[4], (byte)G[4], (byte)B[4]);
+                    workImage.SetPixel(i, j, color);
+                }
+            }
+
+            Finish();
         }
     }
 }
