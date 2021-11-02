@@ -308,7 +308,7 @@ namespace ComputerVision
             workImage.Unlock();
         }
 
-        private void InitializeMatrix(int[,] matrix, int index)
+        private void InitializeMatrix_ForFTJ(int[,] matrix, int index)
         {
             matrix[0, 0] = 1;
             matrix[0, 1] = index;
@@ -321,6 +321,19 @@ namespace ComputerVision
             matrix[2, 2] = 1;
         }
 
+        private void InitializeMatrix_Outlier(int[,] matrix)
+        {
+            matrix[0, 0] = 1;
+            matrix[0, 1] = 1;
+            matrix[0, 2] = 1;
+            matrix[1, 0] = 1;
+            matrix[1, 1] = 0;
+            matrix[1, 2] = 1;
+            matrix[2, 0] = 1;
+            matrix[2, 1] = 1;
+            matrix[2, 2] = 1;
+        }
+
         private void ftjBtn_Click(object sender, EventArgs e) //Filtrul Trece-Jos
         {
             workImage.Lock();
@@ -329,7 +342,7 @@ namespace ComputerVision
             int GSum, RSum, BSum;
             int[,] H = new int[3, 3];
             int index = Convert.ToInt32(ftjTxtBox.Text);
-            InitializeMatrix(H, index);
+            InitializeMatrix_ForFTJ(H, index);
 
             //Convoluția imaginii cu matricea H
             for (int i = 1; i < workImage.height - 2; i++)
@@ -367,43 +380,53 @@ namespace ComputerVision
 
         private void outlierBtn_Click(object sender, EventArgs e)
         {
-            workImage.Lock();
+            int[,] H = new int[3, 3];
             Color color;
             byte R, G, B;
-            int GSum, RSum, BSum;
-            int[,] H = new int[3, 3];
-            int index = Convert.ToInt32(ftjTxtBox.Text);
-            InitializeMatrix(H, index);
+            int RSum, GSum, BSum;
+            int pragIndex = Convert.ToInt32(outlierTxtBox.Text);
+            InitializeMatrix_Outlier(H);
 
-            //Convoluția imaginii cu matricea H
-            for (int i = 1; i < workImage.height - 2; i++)
+            workImage.Lock();
+
+            for (int i = 1; i < workImage.width - 2; i++)
             {
-                for (int j = 1; j < workImage.width - 2; j++)
+                for (int j = 1; j < workImage.height - 2; j++)
                 {
-                    GSum = RSum = BSum = 0;
+                    RSum = GSum = BSum = 0;
 
                     for (int row = i - 1; row <= i + 1; row++)
                     {
                         for (int col = j - 1; col <= j + 1; col++)
                         {
-                            color = workImage.GetPixel(col, row);
-                            G = color.G;
+                            color = workImage.GetPixel(row, col);
                             R = color.R;
+                            G = color.G;
                             B = color.B;
 
-                            GSum = GSum + G * H[row - i + 1, col - j + 1];
                             RSum = RSum + R * H[row - i + 1, col - j + 1];
+                            GSum = GSum + G * H[row - i + 1, col - j + 1];
                             BSum = BSum + B * H[row - i + 1, col - j + 1];
                         }
                     }
-                    GSum = GSum / ((index + 2) * (index + 2));
-                    RSum = RSum / ((index + 2) * (index + 2));
-                    BSum = BSum / ((index + 2) * (index + 2));
 
-                    color = Color.FromArgb(RSum, GSum, BSum);
-                    workImage.SetPixel(j, i, color);
+                    color = workImage.GetPixel(i, j);
+                    R = color.R;
+                    G = color.G;
+                    B = color.B;
+                    RSum = RSum / 8;
+                    GSum = GSum / 8;
+                    BSum = BSum / 8;
+
+                    if (Math.Abs((R + G + B) / 3 - (RSum + GSum + BSum) / 3) > pragIndex)
+                    {
+                        color = Color.FromArgb(RSum, GSum, BSum);
+                    }
+
+                    workImage.SetPixel(i, j, color);
                 }
             }
+
             panelDestination.BackgroundImage = null;
             panelDestination.BackgroundImage = workImage.GetBitMap();
             workImage.Unlock();
