@@ -47,6 +47,7 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
+            this.markovBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -85,6 +86,7 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.markovBtn);
             this.panel1.Controls.Add(this.medianBtn);
             this.panel1.Controls.Add(this.outlierTxtBox);
             this.panel1.Controls.Add(this.outlierBtn);
@@ -95,14 +97,14 @@ namespace ComputerVision
             this.panel1.Controls.Add(this.egalizareBtn);
             this.panel1.Controls.Add(this.btnNegativare);
             this.panel1.Controls.Add(this.buttonGrayscale);
-            this.panel1.Location = new System.Drawing.Point(348, 271);
+            this.panel1.Location = new System.Drawing.Point(348, 288);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(320, 213);
             this.panel1.TabIndex = 3;
             // 
             // medianBtn
             // 
-            this.medianBtn.Location = new System.Drawing.Point(19, 183);
+            this.medianBtn.Location = new System.Drawing.Point(209, 57);
             this.medianBtn.Name = "medianBtn";
             this.medianBtn.Size = new System.Drawing.Size(91, 23);
             this.medianBtn.TabIndex = 22;
@@ -112,14 +114,14 @@ namespace ComputerVision
             // 
             // outlierTxtBox
             // 
-            this.outlierTxtBox.Location = new System.Drawing.Point(19, 72);
+            this.outlierTxtBox.Location = new System.Drawing.Point(19, 89);
             this.outlierTxtBox.Name = "outlierTxtBox";
             this.outlierTxtBox.Size = new System.Drawing.Size(186, 20);
             this.outlierTxtBox.TabIndex = 21;
             // 
             // outlierBtn
             // 
-            this.outlierBtn.Location = new System.Drawing.Point(211, 69);
+            this.outlierBtn.Location = new System.Drawing.Point(211, 86);
             this.outlierBtn.Name = "outlierBtn";
             this.outlierBtn.Size = new System.Drawing.Size(91, 23);
             this.outlierBtn.TabIndex = 20;
@@ -129,14 +131,14 @@ namespace ComputerVision
             // 
             // ftjTxtBox
             // 
-            this.ftjTxtBox.Location = new System.Drawing.Point(19, 101);
+            this.ftjTxtBox.Location = new System.Drawing.Point(19, 118);
             this.ftjTxtBox.Name = "ftjTxtBox";
             this.ftjTxtBox.Size = new System.Drawing.Size(186, 20);
             this.ftjTxtBox.TabIndex = 19;
             // 
             // ftjBtn
             // 
-            this.ftjBtn.Location = new System.Drawing.Point(211, 98);
+            this.ftjBtn.Location = new System.Drawing.Point(211, 115);
             this.ftjBtn.Name = "ftjBtn";
             this.ftjBtn.Size = new System.Drawing.Size(91, 23);
             this.ftjBtn.TabIndex = 18;
@@ -146,14 +148,14 @@ namespace ComputerVision
             // 
             // rotatieLbl
             // 
-            this.rotatieLbl.Location = new System.Drawing.Point(19, 127);
+            this.rotatieLbl.Location = new System.Drawing.Point(19, 144);
             this.rotatieLbl.Name = "rotatieLbl";
             this.rotatieLbl.Size = new System.Drawing.Size(186, 20);
             this.rotatieLbl.TabIndex = 17;
             // 
             // rotatieBtn
             // 
-            this.rotatieBtn.Location = new System.Drawing.Point(211, 127);
+            this.rotatieBtn.Location = new System.Drawing.Point(211, 144);
             this.rotatieBtn.Name = "rotatieBtn";
             this.rotatieBtn.Size = new System.Drawing.Size(91, 23);
             this.rotatieBtn.TabIndex = 16;
@@ -163,7 +165,7 @@ namespace ComputerVision
             // 
             // egalizareBtn
             // 
-            this.egalizareBtn.Location = new System.Drawing.Point(208, 155);
+            this.egalizareBtn.Location = new System.Drawing.Point(208, 172);
             this.egalizareBtn.Margin = new System.Windows.Forms.Padding(2);
             this.egalizareBtn.Name = "egalizareBtn";
             this.egalizareBtn.Size = new System.Drawing.Size(94, 23);
@@ -174,7 +176,7 @@ namespace ComputerVision
             // 
             // btnNegativare
             // 
-            this.btnNegativare.Location = new System.Drawing.Point(115, 155);
+            this.btnNegativare.Location = new System.Drawing.Point(115, 172);
             this.btnNegativare.Margin = new System.Windows.Forms.Padding(2);
             this.btnNegativare.Name = "btnNegativare";
             this.btnNegativare.Size = new System.Drawing.Size(89, 23);
@@ -185,7 +187,7 @@ namespace ComputerVision
             // 
             // buttonGrayscale
             // 
-            this.buttonGrayscale.Location = new System.Drawing.Point(19, 155);
+            this.buttonGrayscale.Location = new System.Drawing.Point(19, 172);
             this.buttonGrayscale.Name = "buttonGrayscale";
             this.buttonGrayscale.Size = new System.Drawing.Size(91, 23);
             this.buttonGrayscale.TabIndex = 13;
@@ -233,6 +235,17 @@ namespace ComputerVision
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
+            // markovBtn
+            // 
+            this.markovBtn.Location = new System.Drawing.Point(115, 57);
+            this.markovBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.markovBtn.Name = "markovBtn";
+            this.markovBtn.Size = new System.Drawing.Size(89, 23);
+            this.markovBtn.TabIndex = 23;
+            this.markovBtn.Text = "Markov";
+            this.markovBtn.UseVisualStyleBackColor = true;
+            this.markovBtn.Click += new System.EventHandler(this.MarkovBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,6 +291,7 @@ namespace ComputerVision
         private System.Windows.Forms.TextBox outlierTxtBox;
         private System.Windows.Forms.Button outlierBtn;
         private System.Windows.Forms.Button medianBtn;
+        private System.Windows.Forms.Button markovBtn;
     }
 }
 

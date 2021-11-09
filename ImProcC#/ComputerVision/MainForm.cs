@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -462,6 +463,95 @@ namespace ComputerVision
             }
 
             Finish();
+        }
+
+        //maximul din dictionar - vector de frecventa
+        private Color CBP(int x, int y, int CS, int SR, int T)
+        {
+            Dictionary<Color, int> Q = new Dictionary<Color, int>();
+
+            for (int i = x - SR; i <= x + SR; i++)
+            {
+                for (int j = y - SR; j <= y + SR; j++)
+                {
+                    if (i == x && i == y) continue;
+                    if (SAD(x, y, x, j, CS) < T && !SaltAndPepper(x, j)) //in afara de cel detectat ca sare si piper
+                    {
+                        Color color = workImage.GetPixel(x, j);
+                        if (!Q.ContainsKey(color))
+                        {
+                            Q.Add(color, 1);
+                        }
+                        else
+                        {
+                            Q[color]++;
+                        }
+                    }
+                }
+            }
+
+            KeyValuePair<Color, int> max = new KeyValuePair<Color, int>();
+            foreach (var element in Q)
+            {
+                if (element.Value > max.Value)
+                    max = element;
+            }
+
+            return max.Key;
+        }
+
+        // se uita in vecinatatea pixelului curent
+        private int SAD(int x1, int y1, int x2, int y2, int CS)
+        {
+            int S = 0;
+            for (int i = (CS / 2) * (-1); i <= CS / 2; i++)
+            {
+                for (int j = (CS / 2) * (-1); j <= CS / 2; j++)
+                {
+                    if (i + x1 > 0 && i + x1 < Width && i + x2 > 0 && i + x2 < Width)
+                    {
+                        if (j + y1 > 0 && j + y1 < Height && j + y2 > 0 && j + y2 < Height)
+                        {
+                            if (!(i == 0 && j == 0))
+                            {
+                                Color color1 = workImage.GetPixel(i + x1, j + y1);
+                                Color color2 = workImage.GetPixel(i + x2, j + y2);
+                                int greyScale1 = (color1.R + color1.G + color1.B) / 3;
+                                int greyScale2 = (color1.R + color1.G + color1.B) / 3;
+                                S = S + Math.Abs(greyScale1 - greyScale2);
+                            }
+                        }
+                    }
+                }
+            }
+            return S;
+        }
+
+        private bool SaltAndPepper(int i, int j)
+        {
+            Color color;
+            color = workImage.GetPixel(i, j);
+            int grayScale = (color.R + color.G + color.B) / 3;
+            return (grayScale == 0) || (grayScale == 255);
+        }
+
+        private void MarkovBtn_Click(object sender, EventArgs e)
+        {
+            //T = 500
+            //SR 4
+            //CS 3
+            workImage.Lock();
+            for (int i = 0; i < workImage.width; i++)
+            {
+                for (int j = 0; j < workImage.height; j++)
+                {
+                    if (SaltAndPepper(i, j))
+                    {
+                        workImage.SetPixel(i, j, CBP(i, j, 3, 4, 500));
+                    }
+                }
+            }
+            workImage.Unlock();
         }
     }
 }
