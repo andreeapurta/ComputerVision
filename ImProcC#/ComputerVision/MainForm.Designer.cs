@@ -32,6 +32,10 @@ namespace ComputerVision
             this.panelDestination = new System.Windows.Forms.Panel();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.FTSBtn = new System.Windows.Forms.Button();
+            this.unsharpBtn = new System.Windows.Forms.Button();
+            this.unsharpMaskingText = new System.Windows.Forms.TextBox();
+            this.markovBtn = new System.Windows.Forms.Button();
             this.medianBtn = new System.Windows.Forms.Button();
             this.outlierTxtBox = new System.Windows.Forms.TextBox();
             this.outlierBtn = new System.Windows.Forms.Button();
@@ -47,7 +51,6 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
-            this.markovBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -86,6 +89,9 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.FTSBtn);
+            this.panel1.Controls.Add(this.unsharpBtn);
+            this.panel1.Controls.Add(this.unsharpMaskingText);
             this.panel1.Controls.Add(this.markovBtn);
             this.panel1.Controls.Add(this.medianBtn);
             this.panel1.Controls.Add(this.outlierTxtBox);
@@ -97,10 +103,50 @@ namespace ComputerVision
             this.panel1.Controls.Add(this.egalizareBtn);
             this.panel1.Controls.Add(this.btnNegativare);
             this.panel1.Controls.Add(this.buttonGrayscale);
-            this.panel1.Location = new System.Drawing.Point(348, 288);
+            this.panel1.Location = new System.Drawing.Point(348, 258);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 213);
+            this.panel1.Size = new System.Drawing.Size(320, 243);
             this.panel1.TabIndex = 3;
+            // 
+            // FTSBtn
+            // 
+            this.FTSBtn.Location = new System.Drawing.Point(19, 57);
+            this.FTSBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.FTSBtn.Name = "FTSBtn";
+            this.FTSBtn.Size = new System.Drawing.Size(89, 23);
+            this.FTSBtn.TabIndex = 27;
+            this.FTSBtn.Text = "FTS";
+            this.FTSBtn.UseVisualStyleBackColor = true;
+            this.FTSBtn.Click += new System.EventHandler(this.FTSBtn_Click);
+            // 
+            // unsharpBtn
+            // 
+            this.unsharpBtn.Location = new System.Drawing.Point(210, 30);
+            this.unsharpBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.unsharpBtn.Name = "unsharpBtn";
+            this.unsharpBtn.Size = new System.Drawing.Size(89, 23);
+            this.unsharpBtn.TabIndex = 25;
+            this.unsharpBtn.Text = "Unsharp";
+            this.unsharpBtn.UseVisualStyleBackColor = true;
+            this.unsharpBtn.Click += new System.EventHandler(this.UnsharpBtn_Click);
+            // 
+            // unsharpMaskingText
+            // 
+            this.unsharpMaskingText.Location = new System.Drawing.Point(19, 32);
+            this.unsharpMaskingText.Name = "unsharpMaskingText";
+            this.unsharpMaskingText.Size = new System.Drawing.Size(186, 20);
+            this.unsharpMaskingText.TabIndex = 24;
+            // 
+            // markovBtn
+            // 
+            this.markovBtn.Location = new System.Drawing.Point(115, 57);
+            this.markovBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.markovBtn.Name = "markovBtn";
+            this.markovBtn.Size = new System.Drawing.Size(89, 23);
+            this.markovBtn.TabIndex = 23;
+            this.markovBtn.Text = "Markov";
+            this.markovBtn.UseVisualStyleBackColor = true;
+            this.markovBtn.Click += new System.EventHandler(this.MarkovBtn_Click);
             // 
             // medianBtn
             // 
@@ -235,17 +281,6 @@ namespace ComputerVision
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
-            // markovBtn
-            // 
-            this.markovBtn.Location = new System.Drawing.Point(115, 57);
-            this.markovBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.markovBtn.Name = "markovBtn";
-            this.markovBtn.Size = new System.Drawing.Size(89, 23);
-            this.markovBtn.TabIndex = 23;
-            this.markovBtn.Text = "Markov";
-            this.markovBtn.UseVisualStyleBackColor = true;
-            this.markovBtn.Click += new System.EventHandler(this.MarkovBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -292,6 +327,9 @@ namespace ComputerVision
         private System.Windows.Forms.Button outlierBtn;
         private System.Windows.Forms.Button medianBtn;
         private System.Windows.Forms.Button markovBtn;
+        private System.Windows.Forms.TextBox unsharpMaskingText;
+        private System.Windows.Forms.Button unsharpBtn;
+        private System.Windows.Forms.Button FTSBtn;
     }
 }
 

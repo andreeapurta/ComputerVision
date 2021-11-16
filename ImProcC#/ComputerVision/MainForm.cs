@@ -553,5 +553,157 @@ namespace ComputerVision
             }
             workImage.Unlock();
         }
+
+        private void UnsharpBtn_Click(object sender, EventArgs e)
+        {
+            workImage.Lock();
+            int[,] H = new int[3, 3];
+            int index = Convert.ToInt32(unsharpMaskingText.Text);
+            Color color;
+
+            byte R, G, B;
+            R = G = B = 0;
+            double c = 0.6; //c[0.6,0.8]
+
+            int RSum, GSum, BSum;
+            H[0, 0] = 1;
+            H[0, 1] = index;
+            H[0, 2] = 1;
+            H[1, 0] = index;
+            H[1, 1] = index * index;
+            H[1, 2] = index;
+            H[2, 0] = 1;
+            H[2, 1] = index;
+            H[2, 2] = 1;
+
+            for (int i = 1; i < workImage.height - 1; i++)
+            {
+                for (int j = 1; j < workImage.width - 1; j++)
+                {
+                    RSum = GSum = BSum = 0;
+
+                    for (int row = i - 1; row <= i + 1; row++)
+                    {
+                        for (int col = j - 1; col <= j + 1; col++)
+                        {
+                            color = workImage.GetPixel(col, row);
+                            R = color.R;
+                            G = color.G;
+                            B = color.B;
+
+                            RSum += R * H[row - i + 1, col - j + 1];
+                            GSum += G * H[row - i + 1, col - j + 1];
+                            BSum += B * H[row - i + 1, col - j + 1];
+                        }
+                    }
+
+                    RSum /= ((index + 2) * (index + 2));
+                    GSum /= ((index + 2) * (index + 2));
+                    BSum /= ((index + 2) * (index + 2));
+
+                    RSum = Convert.ToInt32((int)(c * R / ((2 * c) - 1)) - (((1 - c) * RSum) / ((2 * c) - 1)));
+                    GSum = Convert.ToInt32((int)(c * G / ((2 * c) - 1)) - (((1 - c) * GSum) / ((2 * c) - 1)));
+                    BSum = Convert.ToInt32((int)(c * B / ((2 * c) - 1)) - (((1 - c) * BSum) / ((2 * c) - 1)));
+
+                    if (RSum > 255) RSum = 255;
+                    if (GSum > 255) GSum = 255;
+                    if (BSum > 255) BSum = 255;
+
+                    if (RSum < 0) RSum = 0;
+                    if (GSum < 0) GSum = 0;
+                    if (BSum < 0) BSum = 0;
+
+                    color = Color.FromArgb(RSum, GSum, BSum);
+                    workImage.SetPixel(j, i, color);
+                }
+            }
+            Finish();
+        }
+
+        private void FTSBtn_Click(object sender, EventArgs e)
+        {
+            Bitmap copiedImage = new Bitmap(sourceFileName);
+            FastImage workImage = new FastImage(copiedImage);
+            this.workImage.Lock();
+            workImage.Lock();
+
+            int[,] H = new int[3, 3];
+            Color color;
+
+            byte R, G, B;
+
+            int RSum, GSum, BSum;
+            //Matricea 1
+            H[0, 0] = 0;
+            H[0, 1] = -1;
+            H[0, 2] = 0;
+            H[1, 0] = -1;
+            H[1, 1] = 5;
+            H[1, 2] = -1;
+            H[2, 0] = 0;
+            H[2, 1] = -1;
+            H[2, 2] = 0;
+
+            //Matricea 2
+            H[0, 0] = -1;
+            H[0, 1] = -1;
+            H[0, 2] = -1;
+            H[1, 0] = -1;
+            H[1, 1] = 9;
+            H[1, 2] = -1;
+            H[2, 0] = -1;
+            H[2, 1] = -1;
+            H[2, 2] = -1;
+
+            //Matricea 3
+            H[0, 0] = 1;
+            H[0, 1] = -2;
+            H[0, 2] = 1;
+            H[1, 0] = -2;
+            H[1, 1] = 5;
+            H[1, 2] = -2;
+            H[2, 0] = 1;
+            H[2, 1] = -2;
+            H[2, 2] = 1;
+
+            for (int i = 1; i < workImage.height - 1; i++)
+            {
+                for (int j = 1; j < workImage.width - 1; j++)
+                {
+                    RSum = GSum = BSum = 0;
+
+                    for (int row = i - 1; row <= i + 1; row++)
+                    {
+                        for (int col = j - 1; col <= j + 1; col++)
+                        {
+                            color = this.workImage.GetPixel(col, row);
+                            R = color.R;
+                            G = color.G;
+                            B = color.B;
+
+                            RSum += R * H[row - i + 1, col - j + 1];
+                            GSum += G * H[row - i + 1, col - j + 1];
+                            BSum += B * H[row - i + 1, col - j + 1];
+                        }
+                    }
+
+                    if (RSum > 255) RSum = 255;
+                    if (GSum > 255) GSum = 255;
+                    if (BSum > 255) BSum = 255;
+
+                    if (RSum < 0) RSum = 0;
+                    if (GSum < 0) GSum = 0;
+                    if (BSum < 0) BSum = 0;
+
+                    color = Color.FromArgb(RSum, GSum, BSum);
+                    workImage.SetPixel(j, i, color);
+                }
+            }
+
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = workImage.GetBitMap();
+            workImage.Unlock();
+            this.workImage.Unlock();
+        }
     }
 }
