@@ -633,16 +633,16 @@ namespace ComputerVision
             byte R, G, B;
 
             int RSum, GSum, BSum;
-            //Matricea 1
-            H[0, 0] = 0;
-            H[0, 1] = -1;
-            H[0, 2] = 0;
-            H[1, 0] = -1;
-            H[1, 1] = 5;
-            H[1, 2] = -1;
-            H[2, 0] = 0;
-            H[2, 1] = -1;
-            H[2, 2] = 0;
+            ////Matricea 1
+            //H[0, 0] = 0;
+            //H[0, 1] = -1;
+            //H[0, 2] = 0;
+            //H[1, 0] = -1;
+            //H[1, 1] = 5;
+            //H[1, 2] = -1;
+            //H[2, 0] = 0;
+            //H[2, 1] = -1;
+            //H[2, 2] = 0;
 
             //Matricea 2
             H[0, 0] = -1;
@@ -655,16 +655,16 @@ namespace ComputerVision
             H[2, 1] = -1;
             H[2, 2] = -1;
 
-            //Matricea 3
-            H[0, 0] = 1;
-            H[0, 1] = -2;
-            H[0, 2] = 1;
-            H[1, 0] = -2;
-            H[1, 1] = 5;
-            H[1, 2] = -2;
-            H[2, 0] = 1;
-            H[2, 1] = -2;
-            H[2, 2] = 1;
+            ////Matricea 3
+            //H[0, 0] = 1;
+            //H[0, 1] = -2;
+            //H[0, 2] = 1;
+            //H[1, 0] = -2;
+            //H[1, 1] = 5;
+            //H[1, 2] = -2;
+            //H[2, 0] = 1;
+            //H[2, 1] = -2;
+            //H[2, 2] = 1;
 
             for (int i = 1; i < workImage.height - 1; i++)
             {
@@ -704,6 +704,38 @@ namespace ComputerVision
             panelDestination.BackgroundImage = workImage.GetBitMap();
             workImage.Unlock();
             this.workImage.Unlock();
+        }
+
+        private void SortFilterBtn_Click(object sender, EventArgs e)
+        {
+            workImage.Lock();
+            Color color;
+
+            for (int i = 1; i < workImage.height - 1; i++)
+            {
+                for (int j = 1; j < workImage.width - 1; j++)
+                {
+                    List<int> red = new List<int>();
+                    List<int> blue = new List<int>();
+                    List<int> green = new List<int>();
+
+                    for (int row = i - 1; row <= i + 1; row++)
+                    {
+                        for (int col = j - 1; col <= j + 1; col++)
+                        {
+                            color = workImage.GetPixel(row, col);
+                            red.Add(color.R);
+                            green.Add(color.G);
+                            blue.Add(color.B);
+                        }
+                    }
+                    red.Sort();
+                    blue.Sort();
+                    green.Sort();
+                    workImage.SetPixel(i, j, Color.FromArgb(red[4], green[4], blue[4])); //setare pixel cu elementul central
+                }
+            }
+            Finish();
         }
     }
 }

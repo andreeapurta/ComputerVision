@@ -51,6 +51,7 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
+            this.SortFilterBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -89,6 +90,7 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.SortFilterBtn);
             this.panel1.Controls.Add(this.FTSBtn);
             this.panel1.Controls.Add(this.unsharpBtn);
             this.panel1.Controls.Add(this.unsharpMaskingText);
@@ -281,6 +283,17 @@ namespace ComputerVision
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
+            // SortFilterBtn
+            // 
+            this.SortFilterBtn.Location = new System.Drawing.Point(19, 4);
+            this.SortFilterBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.SortFilterBtn.Name = "SortFilterBtn";
+            this.SortFilterBtn.Size = new System.Drawing.Size(89, 23);
+            this.SortFilterBtn.TabIndex = 28;
+            this.SortFilterBtn.Text = "SortFilter";
+            this.SortFilterBtn.UseVisualStyleBackColor = true;
+            this.SortFilterBtn.Click += new System.EventHandler(this.SortFilterBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -330,6 +343,7 @@ namespace ComputerVision
         private System.Windows.Forms.TextBox unsharpMaskingText;
         private System.Windows.Forms.Button unsharpBtn;
         private System.Windows.Forms.Button FTSBtn;
+        private System.Windows.Forms.Button SortFilterBtn;
     }
 }
 
