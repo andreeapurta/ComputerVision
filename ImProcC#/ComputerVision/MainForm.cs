@@ -737,5 +737,281 @@ namespace ComputerVision
             }
             Finish();
         }
+
+        //detectie contururi orizontale
+        private void KirschBtn_Click(object sender, EventArgs e)
+        {
+            Color color;
+            Bitmap image = new Bitmap(sourceFileName);
+            FastImage workImage = new FastImage(image);
+            workImage.Lock();
+            Bitmap newImage = new Bitmap(workImage.width, workImage.height);
+            FastImage newFastImage = new FastImage(newImage);
+            newFastImage.Lock();
+            List<int[,]> HList = new List<int[,]>();
+
+            HList.Add(new int[,] {
+                { -1, 0, -1 },
+                { -1, 0, -1 },
+                { -1, 0, -1 }
+            });
+            HList.Add(new int[,] {
+                { 1, 1, 1 },
+                { 0, 0, 0 },
+                { -1, -1, -1 }
+            });
+            HList.Add(new int[,] {
+                { 0, 1, 1 },
+                { -1, 0, 1 },
+                { -1, -1, 0 }
+            });
+            HList.Add(new int[,] {
+                { 1, 1, 0 },
+                { 1, 0, -1 },
+                { 0, -1, -1 }
+            });
+
+            for (int i = 1; i < workImage.width - 1; i++)
+            {
+                for (int j = 1; j < workImage.height - 1; j++)
+                {
+                    int GMax = 0;
+                    int BMax = 0;
+                    int RMax = 0;
+                    foreach (var H in HList)
+                    {
+                        int GSum = 0;
+                        int BSum = 0;
+                        int RSum = 0;
+                        for (int row = i - 1; row <= i + 1; row++)
+                        {
+                            for (int col = j - 1; col <= j + 1; col++)
+                            {
+                                color = workImage.GetPixel(row, col);
+                                RSum += color.R * H[row - i + 1, col - j + 1];
+                                GSum += color.G * H[row - i + 1, col - j + 1];
+                                BSum += color.B * H[row - i + 1, col - j + 1];
+                            }
+                        }
+                        RMax = RSum > RMax ? RSum : RMax;
+                        GMax = GSum > GMax ? GSum : GMax;
+                        BMax = BSum > BMax ? BSum : BMax;
+                    }
+
+                    if (RMax > 255) RMax = 255;
+                    if (RMax < 0) RMax = 0;
+                    if (GMax > 255) GMax = 255;
+                    if (GMax < 0) GMax = 0;
+                    if (BMax > 255) BMax = 255;
+                    if (BMax < 0) BMax = 0;
+
+                    newFastImage.SetPixel(i, j, Color.FromArgb(RMax, GMax, BMax));
+                }
+            }
+
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = newFastImage.GetBitMap();
+            newFastImage.Unlock();
+            workImage.Unlock();
+        }
+
+        private void PrewittBtn_Click(object sender, EventArgs e)
+        {
+            Color color;
+            Bitmap image = new Bitmap(sourceFileName);
+            FastImage workImage = new FastImage(image);
+            workImage.Lock();
+            Bitmap newImage = new Bitmap(workImage.width, workImage.height);
+            FastImage newFastImage = new FastImage(newImage);
+            newFastImage.Lock();
+
+            int[,] PMatrix = new int[,]
+            {
+                {-1, -1, -1},
+                {0, 0, 0},
+                {1, 1, 1}
+            };
+
+            int[,] QMatrix = new int[,]
+            {
+                {-1, 0, 1},
+                {-1, 0, 1},
+                {-1, 0, 1}
+            };
+
+            for (int i = 1; i < workImage.width - 1; i++)
+            {
+                for (int j = 1; j < workImage.height - 1; j++)
+                {
+                    int PRSum = 0;
+                    int PGSum = 0;
+                    int PBSum = 0;
+                    int QRSum = 0;
+                    int QGSum = 0;
+                    int QBSum = 0;
+
+                    for (int row = i - 1; row <= i + 1; row++)
+                    {
+                        for (int col = j - 1; col <= j + 1; col++)
+                        {
+                            color = workImage.GetPixel(row, col);
+                            PRSum += color.R * PMatrix[row - i + 1, col - j + 1];
+                            PGSum += color.G * PMatrix[row - i + 1, col - j + 1];
+                            PBSum += color.B * PMatrix[row - i + 1, col - j + 1];
+
+                            QRSum += color.R * QMatrix[row - i + 1, col - j + 1];
+                            QGSum += color.G * QMatrix[row - i + 1, col - j + 1];
+                            QBSum += color.B * QMatrix[row - i + 1, col - j + 1];
+                        }
+                    }
+
+                    int R = (int)Math.Sqrt(Math.Pow(PRSum, 2) + Math.Pow(QRSum, 2));
+                    int G = (int)Math.Sqrt(Math.Pow(PGSum, 2) + Math.Pow(QGSum, 2));
+                    int B = (int)Math.Sqrt(Math.Pow(PBSum, 2) + Math.Pow(QBSum, 2));
+
+                    if (R > 255) R = 255;
+                    if (R < 0) R = 0;
+                    if (G > 255) G = 255;
+                    if (G < 0) G = 0;
+                    if (B > 255) B = 255;
+                    if (B < 0) B = 0;
+
+                    newFastImage.SetPixel(i, j, Color.FromArgb(R, G, B));
+                }
+            }
+
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = newFastImage.GetBitMap();
+            newFastImage.Unlock();
+            workImage.Unlock();
+        }
+
+        private void FreiChenBtn_Click(object sender, EventArgs e)
+        {
+            Color color;
+            Bitmap image = new Bitmap(sourceFileName);
+            FastImage workImage = new FastImage(image);
+            workImage.Lock();
+            Bitmap newImage = new Bitmap(workImage.width, workImage.height);
+            FastImage newFastImage = new FastImage(newImage);
+            newFastImage.Lock();
+            List<double[,]> FMatrics = new List<double[,]>
+            {
+                new double[,] {
+                { 1, Math.Sqrt(2), 1 },
+                { 0, 0, 0 },
+                { -1, -Math.Sqrt(2), -1 }
+            },
+                new double[,] {
+                { 1, 0, -1 },
+                { Math.Sqrt(2), 0, -Math.Sqrt(2) },
+                { 1, 0, -1 }
+            },
+                new double[,] {
+                { 0, -1, Math.Sqrt(2) },
+                { 1, 0, -1 },
+                { -Math.Sqrt(2), 1, 0 }
+            },
+                new double[,] {
+                { Math.Sqrt(2), -1, 0 },
+                { -1, 0, 1 },
+                { 0, 1, -Math.Sqrt(2) }
+            },
+                new double[,] {
+                { 0, 1, 0 },
+                { -1, 0, -1 },
+                { 0, 1, 0 }
+            },
+                new double[,] {
+                { -1, 0, 1 },
+                { 0, 0, 0 },
+                { 1, 0, -1 }
+            },
+                new double[,] {
+                { 1, -2, 1 },
+                { -2, 4, -2 },
+                { 1, -2, 1 }
+            },
+                new double[,] {
+                { -2, 1, -2 },
+                { 1, 4, 1 },
+                { -2, 1, -2 }
+            },
+                new double[,] {
+                { 1/9.0, 1/9.0, 1/9.0 },
+                { 1/9.0, 1/9.0, 1/9.0 },
+                { 1/9.0, 1/9.0, 1/9.0 }
+            }
+          };
+
+            for (int i = 1; i < workImage.width - 1; i++)
+            {
+                for (int j = 1; j < workImage.height - 1; j++)
+                {
+                    double R4sum = 0;
+                    double G4sum = 0;
+                    double B4sum = 0;
+
+                    double R9Sum = 0;
+                    double G9Sum = 0;
+                    double B9Sum = 0;
+
+                    //numitor
+                    for (int index = 0; index <= 8; index++)
+                    {
+                        var F = FMatrics[index];
+
+                        double FRSum = 0;
+                        double FGsum = 0;
+                        double FBSum = 0;
+                        for (int row = i - 1; row <= i + 1; row++)
+                        {
+                            for (int col = j - 1; col <= j + 1; col++)
+                            {
+                                color = workImage.GetPixel(row, col);
+                                FRSum += color.R * F[row - i + 1, col - j + 1];
+                                FGsum += color.G * F[row - i + 1, col - j + 1];
+                                FBSum += color.B * F[row - i + 1, col - j + 1];
+                            }
+                        }
+                        R9Sum += Math.Pow(FRSum, 2);
+                        G9Sum += Math.Pow(FGsum, 2);
+                        B9Sum += Math.Pow(FBSum, 2);
+                    }
+
+                    //numarator
+                    for (int index = 0; index <= 3; index++)
+                    {
+                        var F = FMatrics[index];
+                        double sumFR = 0;
+                        double sumFG = 0;
+                        double sumFB = 0;
+                        for (int row = i - 1; row <= i + 1; row++)
+                        {
+                            for (int col = j - 1; col <= j + 1; col++)
+                            {
+                                color = workImage.GetPixel(row, col);
+                                sumFR += color.R * F[row - i + 1, col - j + 1];
+                                sumFG += color.G * F[row - i + 1, col - j + 1];
+                                sumFB += color.B * F[row - i + 1, col - j + 1];
+                            }
+                        }
+                        R4sum += Math.Pow(sumFR, 2);
+                        G4sum += Math.Pow(sumFG, 2);
+                        B4sum += Math.Pow(sumFB, 2);
+                    }
+
+                    //Final *255
+                    int R = (int)(Math.Sqrt(R4sum / R9Sum) * 255);
+                    int G = (int)(Math.Sqrt(G4sum / G9Sum) * 255);
+                    int B = (int)(Math.Sqrt(G4sum / G9Sum) * 255);
+
+                    panelDestination.BackgroundImage = null;
+                    panelDestination.BackgroundImage = newFastImage.GetBitMap();
+                    newFastImage.Unlock();
+                    workImage.Unlock();
+                }
+            }
+        }
     }
 }

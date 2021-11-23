@@ -32,6 +32,8 @@ namespace ComputerVision
             this.panelDestination = new System.Windows.Forms.Panel();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.kirschBtn = new System.Windows.Forms.Button();
+            this.SortFilterBtn = new System.Windows.Forms.Button();
             this.FTSBtn = new System.Windows.Forms.Button();
             this.unsharpBtn = new System.Windows.Forms.Button();
             this.unsharpMaskingText = new System.Windows.Forms.TextBox();
@@ -51,7 +53,8 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
-            this.SortFilterBtn = new System.Windows.Forms.Button();
+            this.PrewittBtn = new System.Windows.Forms.Button();
+            this.FreiChenBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -79,7 +82,7 @@ namespace ComputerVision
             // 
             // buttonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(593, 507);
+            this.buttonLoad.Location = new System.Drawing.Point(593, 546);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(75, 23);
             this.buttonLoad.TabIndex = 2;
@@ -90,6 +93,9 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.FreiChenBtn);
+            this.panel1.Controls.Add(this.PrewittBtn);
+            this.panel1.Controls.Add(this.kirschBtn);
             this.panel1.Controls.Add(this.SortFilterBtn);
             this.panel1.Controls.Add(this.FTSBtn);
             this.panel1.Controls.Add(this.unsharpBtn);
@@ -105,14 +111,36 @@ namespace ComputerVision
             this.panel1.Controls.Add(this.egalizareBtn);
             this.panel1.Controls.Add(this.btnNegativare);
             this.panel1.Controls.Add(this.buttonGrayscale);
-            this.panel1.Location = new System.Drawing.Point(348, 258);
+            this.panel1.Location = new System.Drawing.Point(348, 267);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(320, 243);
+            this.panel1.Size = new System.Drawing.Size(320, 273);
             this.panel1.TabIndex = 3;
+            // 
+            // kirschBtn
+            // 
+            this.kirschBtn.Location = new System.Drawing.Point(114, 43);
+            this.kirschBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.kirschBtn.Name = "kirschBtn";
+            this.kirschBtn.Size = new System.Drawing.Size(89, 23);
+            this.kirschBtn.TabIndex = 29;
+            this.kirschBtn.Text = "Kirsch";
+            this.kirschBtn.UseVisualStyleBackColor = true;
+            this.kirschBtn.Click += new System.EventHandler(this.KirschBtn_Click);
+            // 
+            // SortFilterBtn
+            // 
+            this.SortFilterBtn.Location = new System.Drawing.Point(21, 43);
+            this.SortFilterBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.SortFilterBtn.Name = "SortFilterBtn";
+            this.SortFilterBtn.Size = new System.Drawing.Size(89, 23);
+            this.SortFilterBtn.TabIndex = 28;
+            this.SortFilterBtn.Text = "SortFilter";
+            this.SortFilterBtn.UseVisualStyleBackColor = true;
+            this.SortFilterBtn.Click += new System.EventHandler(this.SortFilterBtn_Click);
             // 
             // FTSBtn
             // 
-            this.FTSBtn.Location = new System.Drawing.Point(19, 57);
+            this.FTSBtn.Location = new System.Drawing.Point(21, 96);
             this.FTSBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FTSBtn.Name = "FTSBtn";
             this.FTSBtn.Size = new System.Drawing.Size(89, 23);
@@ -123,7 +151,7 @@ namespace ComputerVision
             // 
             // unsharpBtn
             // 
-            this.unsharpBtn.Location = new System.Drawing.Point(210, 30);
+            this.unsharpBtn.Location = new System.Drawing.Point(212, 69);
             this.unsharpBtn.Margin = new System.Windows.Forms.Padding(2);
             this.unsharpBtn.Name = "unsharpBtn";
             this.unsharpBtn.Size = new System.Drawing.Size(89, 23);
@@ -134,14 +162,14 @@ namespace ComputerVision
             // 
             // unsharpMaskingText
             // 
-            this.unsharpMaskingText.Location = new System.Drawing.Point(19, 32);
+            this.unsharpMaskingText.Location = new System.Drawing.Point(21, 71);
             this.unsharpMaskingText.Name = "unsharpMaskingText";
             this.unsharpMaskingText.Size = new System.Drawing.Size(186, 20);
             this.unsharpMaskingText.TabIndex = 24;
             // 
             // markovBtn
             // 
-            this.markovBtn.Location = new System.Drawing.Point(115, 57);
+            this.markovBtn.Location = new System.Drawing.Point(117, 96);
             this.markovBtn.Margin = new System.Windows.Forms.Padding(2);
             this.markovBtn.Name = "markovBtn";
             this.markovBtn.Size = new System.Drawing.Size(89, 23);
@@ -152,7 +180,7 @@ namespace ComputerVision
             // 
             // medianBtn
             // 
-            this.medianBtn.Location = new System.Drawing.Point(209, 57);
+            this.medianBtn.Location = new System.Drawing.Point(211, 96);
             this.medianBtn.Name = "medianBtn";
             this.medianBtn.Size = new System.Drawing.Size(91, 23);
             this.medianBtn.TabIndex = 22;
@@ -162,14 +190,14 @@ namespace ComputerVision
             // 
             // outlierTxtBox
             // 
-            this.outlierTxtBox.Location = new System.Drawing.Point(19, 89);
+            this.outlierTxtBox.Location = new System.Drawing.Point(21, 128);
             this.outlierTxtBox.Name = "outlierTxtBox";
             this.outlierTxtBox.Size = new System.Drawing.Size(186, 20);
             this.outlierTxtBox.TabIndex = 21;
             // 
             // outlierBtn
             // 
-            this.outlierBtn.Location = new System.Drawing.Point(211, 86);
+            this.outlierBtn.Location = new System.Drawing.Point(213, 125);
             this.outlierBtn.Name = "outlierBtn";
             this.outlierBtn.Size = new System.Drawing.Size(91, 23);
             this.outlierBtn.TabIndex = 20;
@@ -179,14 +207,14 @@ namespace ComputerVision
             // 
             // ftjTxtBox
             // 
-            this.ftjTxtBox.Location = new System.Drawing.Point(19, 118);
+            this.ftjTxtBox.Location = new System.Drawing.Point(21, 157);
             this.ftjTxtBox.Name = "ftjTxtBox";
             this.ftjTxtBox.Size = new System.Drawing.Size(186, 20);
             this.ftjTxtBox.TabIndex = 19;
             // 
             // ftjBtn
             // 
-            this.ftjBtn.Location = new System.Drawing.Point(211, 115);
+            this.ftjBtn.Location = new System.Drawing.Point(213, 154);
             this.ftjBtn.Name = "ftjBtn";
             this.ftjBtn.Size = new System.Drawing.Size(91, 23);
             this.ftjBtn.TabIndex = 18;
@@ -196,14 +224,14 @@ namespace ComputerVision
             // 
             // rotatieLbl
             // 
-            this.rotatieLbl.Location = new System.Drawing.Point(19, 144);
+            this.rotatieLbl.Location = new System.Drawing.Point(21, 183);
             this.rotatieLbl.Name = "rotatieLbl";
             this.rotatieLbl.Size = new System.Drawing.Size(186, 20);
             this.rotatieLbl.TabIndex = 17;
             // 
             // rotatieBtn
             // 
-            this.rotatieBtn.Location = new System.Drawing.Point(211, 144);
+            this.rotatieBtn.Location = new System.Drawing.Point(213, 183);
             this.rotatieBtn.Name = "rotatieBtn";
             this.rotatieBtn.Size = new System.Drawing.Size(91, 23);
             this.rotatieBtn.TabIndex = 16;
@@ -213,7 +241,7 @@ namespace ComputerVision
             // 
             // egalizareBtn
             // 
-            this.egalizareBtn.Location = new System.Drawing.Point(208, 172);
+            this.egalizareBtn.Location = new System.Drawing.Point(210, 211);
             this.egalizareBtn.Margin = new System.Windows.Forms.Padding(2);
             this.egalizareBtn.Name = "egalizareBtn";
             this.egalizareBtn.Size = new System.Drawing.Size(94, 23);
@@ -224,7 +252,7 @@ namespace ComputerVision
             // 
             // btnNegativare
             // 
-            this.btnNegativare.Location = new System.Drawing.Point(115, 172);
+            this.btnNegativare.Location = new System.Drawing.Point(117, 211);
             this.btnNegativare.Margin = new System.Windows.Forms.Padding(2);
             this.btnNegativare.Name = "btnNegativare";
             this.btnNegativare.Size = new System.Drawing.Size(89, 23);
@@ -235,7 +263,7 @@ namespace ComputerVision
             // 
             // buttonGrayscale
             // 
-            this.buttonGrayscale.Location = new System.Drawing.Point(19, 172);
+            this.buttonGrayscale.Location = new System.Drawing.Point(21, 211);
             this.buttonGrayscale.Name = "buttonGrayscale";
             this.buttonGrayscale.Size = new System.Drawing.Size(91, 23);
             this.buttonGrayscale.TabIndex = 13;
@@ -245,7 +273,7 @@ namespace ComputerVision
             // 
             // trackBarNegativare
             // 
-            this.trackBarNegativare.Location = new System.Drawing.Point(11, 498);
+            this.trackBarNegativare.Location = new System.Drawing.Point(12, 525);
             this.trackBarNegativare.Margin = new System.Windows.Forms.Padding(2);
             this.trackBarNegativare.Maximum = 255;
             this.trackBarNegativare.Minimum = -255;
@@ -256,7 +284,7 @@ namespace ComputerVision
             // 
             // trackBarContrast
             // 
-            this.trackBarContrast.Location = new System.Drawing.Point(170, 498);
+            this.trackBarContrast.Location = new System.Drawing.Point(171, 525);
             this.trackBarContrast.Margin = new System.Windows.Forms.Padding(2);
             this.trackBarContrast.Maximum = 120;
             this.trackBarContrast.Minimum = -120;
@@ -268,7 +296,7 @@ namespace ComputerVision
             // LuminozitateLbl
             // 
             this.LuminozitateLbl.AutoSize = true;
-            this.LuminozitateLbl.Location = new System.Drawing.Point(51, 471);
+            this.LuminozitateLbl.Location = new System.Drawing.Point(52, 498);
             this.LuminozitateLbl.Name = "LuminozitateLbl";
             this.LuminozitateLbl.Size = new System.Drawing.Size(66, 13);
             this.LuminozitateLbl.TabIndex = 6;
@@ -277,28 +305,39 @@ namespace ComputerVision
             // ContrastLbl
             // 
             this.ContrastLbl.AutoSize = true;
-            this.ContrastLbl.Location = new System.Drawing.Point(206, 471);
+            this.ContrastLbl.Location = new System.Drawing.Point(207, 498);
             this.ContrastLbl.Name = "ContrastLbl";
             this.ContrastLbl.Size = new System.Drawing.Size(46, 13);
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
-            // SortFilterBtn
+            // PrewittBtn
             // 
-            this.SortFilterBtn.Location = new System.Drawing.Point(19, 4);
-            this.SortFilterBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.SortFilterBtn.Name = "SortFilterBtn";
-            this.SortFilterBtn.Size = new System.Drawing.Size(89, 23);
-            this.SortFilterBtn.TabIndex = 28;
-            this.SortFilterBtn.Text = "SortFilter";
-            this.SortFilterBtn.UseVisualStyleBackColor = true;
-            this.SortFilterBtn.Click += new System.EventHandler(this.SortFilterBtn_Click);
+            this.PrewittBtn.Location = new System.Drawing.Point(212, 42);
+            this.PrewittBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.PrewittBtn.Name = "PrewittBtn";
+            this.PrewittBtn.Size = new System.Drawing.Size(89, 23);
+            this.PrewittBtn.TabIndex = 30;
+            this.PrewittBtn.Text = "Prewitt";
+            this.PrewittBtn.UseVisualStyleBackColor = true;
+            this.PrewittBtn.Click += new System.EventHandler(this.PrewittBtn_Click);
+            // 
+            // FreiChenBtn
+            // 
+            this.FreiChenBtn.Location = new System.Drawing.Point(21, 16);
+            this.FreiChenBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.FreiChenBtn.Name = "FreiChenBtn";
+            this.FreiChenBtn.Size = new System.Drawing.Size(89, 23);
+            this.FreiChenBtn.TabIndex = 31;
+            this.FreiChenBtn.Text = "Frei-Chen";
+            this.FreiChenBtn.UseVisualStyleBackColor = true;
+            this.FreiChenBtn.Click += new System.EventHandler(this.FreiChenBtn_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(680, 542);
+            this.ClientSize = new System.Drawing.Size(680, 581);
             this.Controls.Add(this.ContrastLbl);
             this.Controls.Add(this.LuminozitateLbl);
             this.Controls.Add(this.trackBarContrast);
@@ -344,6 +383,9 @@ namespace ComputerVision
         private System.Windows.Forms.Button unsharpBtn;
         private System.Windows.Forms.Button FTSBtn;
         private System.Windows.Forms.Button SortFilterBtn;
+        private System.Windows.Forms.Button kirschBtn;
+        private System.Windows.Forms.Button PrewittBtn;
+        private System.Windows.Forms.Button FreiChenBtn;
     }
 }
 
