@@ -32,6 +32,8 @@ namespace ComputerVision
             this.panelDestination = new System.Windows.Forms.Panel();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.FreiChenBtn = new System.Windows.Forms.Button();
+            this.PrewittBtn = new System.Windows.Forms.Button();
             this.kirschBtn = new System.Windows.Forms.Button();
             this.SortFilterBtn = new System.Windows.Forms.Button();
             this.FTSBtn = new System.Windows.Forms.Button();
@@ -53,8 +55,7 @@ namespace ComputerVision
             this.trackBarContrast = new System.Windows.Forms.TrackBar();
             this.LuminozitateLbl = new System.Windows.Forms.Label();
             this.ContrastLbl = new System.Windows.Forms.Label();
-            this.PrewittBtn = new System.Windows.Forms.Button();
-            this.FreiChenBtn = new System.Windows.Forms.Button();
+            this.GaborBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarNegativare)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
@@ -93,6 +94,7 @@ namespace ComputerVision
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.GaborBtn);
             this.panel1.Controls.Add(this.FreiChenBtn);
             this.panel1.Controls.Add(this.PrewittBtn);
             this.panel1.Controls.Add(this.kirschBtn);
@@ -115,6 +117,28 @@ namespace ComputerVision
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(320, 273);
             this.panel1.TabIndex = 3;
+            // 
+            // FreiChenBtn
+            // 
+            this.FreiChenBtn.Location = new System.Drawing.Point(21, 16);
+            this.FreiChenBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.FreiChenBtn.Name = "FreiChenBtn";
+            this.FreiChenBtn.Size = new System.Drawing.Size(89, 23);
+            this.FreiChenBtn.TabIndex = 31;
+            this.FreiChenBtn.Text = "Frei-Chen";
+            this.FreiChenBtn.UseVisualStyleBackColor = true;
+            this.FreiChenBtn.Click += new System.EventHandler(this.FreiChenBtn_Click);
+            // 
+            // PrewittBtn
+            // 
+            this.PrewittBtn.Location = new System.Drawing.Point(212, 42);
+            this.PrewittBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.PrewittBtn.Name = "PrewittBtn";
+            this.PrewittBtn.Size = new System.Drawing.Size(89, 23);
+            this.PrewittBtn.TabIndex = 30;
+            this.PrewittBtn.Text = "Prewitt";
+            this.PrewittBtn.UseVisualStyleBackColor = true;
+            this.PrewittBtn.Click += new System.EventHandler(this.PrewittBtn_Click);
             // 
             // kirschBtn
             // 
@@ -311,27 +335,16 @@ namespace ComputerVision
             this.ContrastLbl.TabIndex = 7;
             this.ContrastLbl.Text = "Contrast";
             // 
-            // PrewittBtn
+            // GaborBtn
             // 
-            this.PrewittBtn.Location = new System.Drawing.Point(212, 42);
-            this.PrewittBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.PrewittBtn.Name = "PrewittBtn";
-            this.PrewittBtn.Size = new System.Drawing.Size(89, 23);
-            this.PrewittBtn.TabIndex = 30;
-            this.PrewittBtn.Text = "Prewitt";
-            this.PrewittBtn.UseVisualStyleBackColor = true;
-            this.PrewittBtn.Click += new System.EventHandler(this.PrewittBtn_Click);
-            // 
-            // FreiChenBtn
-            // 
-            this.FreiChenBtn.Location = new System.Drawing.Point(21, 16);
-            this.FreiChenBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.FreiChenBtn.Name = "FreiChenBtn";
-            this.FreiChenBtn.Size = new System.Drawing.Size(89, 23);
-            this.FreiChenBtn.TabIndex = 31;
-            this.FreiChenBtn.Text = "Frei-Chen";
-            this.FreiChenBtn.UseVisualStyleBackColor = true;
-            this.FreiChenBtn.Click += new System.EventHandler(this.FreiChenBtn_Click);
+            this.GaborBtn.Location = new System.Drawing.Point(114, 16);
+            this.GaborBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.GaborBtn.Name = "GaborBtn";
+            this.GaborBtn.Size = new System.Drawing.Size(89, 23);
+            this.GaborBtn.TabIndex = 32;
+            this.GaborBtn.Text = "Gabor";
+            this.GaborBtn.UseVisualStyleBackColor = true;
+            this.GaborBtn.Click += new System.EventHandler(this.GaborBtn_Click);
             // 
             // MainForm
             // 
@@ -386,6 +399,7 @@ namespace ComputerVision
         private System.Windows.Forms.Button kirschBtn;
         private System.Windows.Forms.Button PrewittBtn;
         private System.Windows.Forms.Button FreiChenBtn;
+        private System.Windows.Forms.Button GaborBtn;
     }
 }
 

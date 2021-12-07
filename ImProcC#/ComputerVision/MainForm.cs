@@ -1013,5 +1013,125 @@ namespace ComputerVision
                 }
             }
         }
+
+        private void GaborBtn_Click(object sender, EventArgs e)
+        {
+            Color color;
+            Bitmap image = new Bitmap(sourceFileName);
+            FastImage workImage = new FastImage(image);
+            workImage.Lock();
+            Bitmap newImage = new Bitmap(workImage.width, workImage.height);
+            FastImage newFastImage = new FastImage(newImage);
+            newFastImage.Lock();
+            int[,] P = new int[,] { { 1, 1, 1 }, { 0, 0, 0 }, { -1, -1, -1 } };
+            int[,] Q = new int[,] { { -1, 0, 1 }, { -1, 0, 1 }, { -1, 0, 1 } };
+            Color[,] vecini;
+            double RSum, GSum, BSum, RScale, GScale, BScale, Ru, Gu, Bu;
+
+            for (int i = 1; i < workImage.width - 1; i++)
+            {
+                for (int j = 1; j < workImage.height - 1; j++)
+                {
+                    vecini = new Color[,]
+                   {
+                        {workImage.GetPixel(i - 1, j - 1), workImage.GetPixel(i - 1, j), workImage.GetPixel(i - 1, j + 1)},
+                        {workImage.GetPixel(i, j - 1), workImage.GetPixel(i, j), workImage.GetPixel(i, j + 1)},
+                        {workImage.GetPixel(i + 1, j - 1), workImage.GetPixel(i + 1, j),workImage.GetPixel(i + 1, j + 1)}
+                   };
+
+                    int[] sumaP = new int[] { 0, 0, 0 };
+                    int[] sumaQ = new int[] { 0, 0, 0 };
+                    RSum = GSum = BSum = 0;
+
+                    for (int q = 0; q < 3; q++)
+                    {
+                        for (int w = 0; w < 3; w++)
+                        {
+                            sumaP[0] += vecini[q, w].R * P[q, w];
+                            sumaP[1] += vecini[q, w].G * P[q, w];
+                            sumaP[2] += vecini[q, w].B * P[q, w];
+
+                            sumaQ[0] += vecini[q, w].R * Q[q, w];
+                            sumaQ[1] += vecini[q, w].G * Q[q, w];
+                            sumaQ[2] += vecini[q, w].B * Q[q, w];
+                        }
+                    }
+                    //sumaQ pentru R
+                    if (sumaQ[0] == 0)
+                    {
+                        if (sumaP[0] >= 0) Ru = Math.PI / 2;
+                        else Ru = 0 - (Math.PI / 2);
+                    }
+                    else
+                    {
+                        Ru = Math.Atan(sumaP[0] / sumaQ[0]);
+                        if (sumaQ[0] < 0) Ru += Math.PI;
+                    }
+
+                    //sumaQ pentru G
+                    if (sumaQ[1] == 0)
+                    {
+                        if (sumaP[1] >= 0) Gu = Math.PI / 2;
+                        else Gu = 0 - (Math.PI / 2);
+                    }
+                    else
+                    {
+                        Gu = Math.Atan(sumaP[1] / sumaQ[1]);
+                        if (sumaQ[1] < 0) Gu += Math.PI;
+                    }
+
+                    //sumaQ pentru B
+                    if (sumaQ[2] == 0)
+                    {
+                        if (sumaP[2] >= 0) Bu = Math.PI / 2;
+                        else Bu = 0 - (Math.PI / 2);
+                    }
+                    else
+                    {
+                        Bu = Math.Atan(sumaP[2] / sumaQ[2]);
+                        if (sumaQ[2] < 0) Bu += Math.PI;
+                    }
+
+                    //u = u + PI/2
+                    Ru += Math.PI / 2;
+                    Gu += Math.PI / 2;
+                    Bu += Math.PI / 2;
+
+                    for (int q = 0; q < 3; q++)
+                    {
+                        for (int w = 0; w < 3; w++)
+                        {
+                            RScale = (Math.Pow(Math.E, 0 - ((Math.Pow(q, 2) + Math.Pow(w, 2)) / (2 * Math.Pow(0.66, 2))))) *
+                                     Math.Sin(1.5 * (q * Math.Cos(Ru) + w * Math.Sin(Ru)));
+                            GScale = (Math.Pow(Math.E, 0 - ((Math.Pow(q, 2) + Math.Pow(w, 2)) / (2 * Math.Pow(0.66, 2))))) *
+                                     Math.Sin(1.5 * (q * Math.Cos(Gu) + w * Math.Sin(Gu)));
+                            BScale = (Math.Pow(Math.E, 0 - ((Math.Pow(q, 2) + Math.Pow(w, 2)) / (2 * Math.Pow(0.66, 2))))) *
+                                     Math.Sin(1.5 * (q * Math.Cos(Bu) + w * Math.Sin(Bu)));
+
+                            RSum += RScale * vecini[q, w].R;
+                            GSum += GScale * vecini[q, w].G;
+                            BSum += BScale * vecini[q, w].B;
+                        }
+                    }
+
+                    if (RSum > 255) RSum = 255;
+                    if (GSum > 255) GSum = 255;
+                    if (BSum > 255) BSum = 255;
+
+                    if (RSum < 0) RSum = 0;
+                    if (GSum < 0) GSum = 0;
+                    if (BSum < 0) BSum = 0;
+
+                    color = Color.FromArgb(Convert.ToInt32(RSum), Convert.ToInt32(GSum), Convert.ToInt32(BSum));
+
+                    newFastImage.SetPixel(i, j, color);
+                }
+            }
+
+            panelDestination.BackgroundImage = null;
+            panelDestination.BackgroundImage = newFastImage.GetBitMap();
+            newFastImage.Unlock();
+            workImage.Unlock();
+        }
     }
 }
